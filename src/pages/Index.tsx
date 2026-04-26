@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Download, RefreshCw, Sparkles, Wand2, Lock } from "lucide-react";
+import { Download, RefreshCw, Sparkles, Wand2, Lock, Quote } from "lucide-react";
+import flauntMark from "@/assets/flaunt-mark.jpg";
 import { toPng } from "html-to-image";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -214,24 +215,92 @@ const Index = () => {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative overflow-hidden">
+      {/* Ambient floating mark — soft, blurred, behind everything */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 -right-32 w-[640px] h-[640px] opacity-[0.18] blur-[2px] float-slow"
+        style={{
+          backgroundImage: `url(${flauntMark})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          maskImage: "radial-gradient(circle at center, black 40%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(circle at center, black 40%, transparent 75%)",
+        }}
+      />
+
       {/* Header */}
-      <header className="container max-w-6xl pt-8 pb-4 flex items-center justify-between">
+      <header className="container max-w-6xl pt-7 pb-4 flex items-center justify-between relative">
         <FlauntLogo />
-        <div className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground">
-          <Lock className="h-3 w-3" />
-          Photos analyzed, never stored
+        <div className="hidden sm:flex items-center gap-3 text-xs text-muted-foreground">
+          <span className="font-display italic tracking-wide">Vol. 01</span>
+          <span className="h-3 w-px bg-white/15" />
+          <span className="inline-flex items-center gap-1.5">
+            <Lock className="h-3 w-3" />
+            Photos analyzed, never stored
+          </span>
         </div>
       </header>
 
+      {/* Editorial divider */}
+      <div className="container max-w-6xl">
+        <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/70">
+          <span className="h-px flex-1 bg-white/10" />
+          <span>No. 001 — Your AI Stylist</span>
+          <span className="h-px flex-1 bg-white/10" />
+        </div>
+      </div>
+
       {/* Hero */}
-      <section className="container max-w-6xl pt-2 pb-8 text-center md:text-left">
-        <h1 className="font-display text-4xl md:text-6xl font-bold leading-[1.05] tracking-tight">
-          Don't rate. <span className="text-gradient-brand">Match.</span>
-        </h1>
-        <p className="mt-3 max-w-xl mx-auto md:mx-0 text-muted-foreground">
-          Your AI stylist. Honest, friend-tone feedback on whether your fit actually works for where you're going.
-        </p>
+      <section className="container max-w-6xl pt-10 pb-10 relative">
+        <div className="grid md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-8 items-end">
+          <div>
+            <p className="font-display italic text-brand-pink text-sm md:text-base mb-3">
+              <span className="mr-2">✦</span>
+              an honest second opinion, before you leave the house
+            </p>
+            <h1 className="font-display font-bold leading-[0.95] tracking-tight text-[clamp(2.75rem,8vw,5.5rem)]">
+              Don't rate.{" "}
+              <span className="text-gradient-brand italic">Match.</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
+              FLAUNT is your AI stylist — the friend who actually knows fashion. Drop a fit, pick the
+              occasion, get the truth in the voice of someone texting you back.
+            </p>
+          </div>
+
+          {/* Pull-quote card — adds editorial density */}
+          <aside className="glass-warm rounded-2xl p-5 md:p-6 relative">
+            <Quote className="absolute -top-3 -left-3 h-7 w-7 text-brand-coral rotate-180 bg-background rounded-full p-1.5 border border-white/10" />
+            <p className="font-display italic text-lg leading-snug text-foreground/95">
+              "Tbh that jacket is carrying the whole fit — but those sneakers are{" "}
+              <span className="text-gradient-brand">fighting</span> the trousers."
+            </p>
+            <div className="mt-4 flex items-center justify-between text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              <span>— flaunt, on a tuesday</span>
+              <span className="font-display normal-case italic text-brand-sparkle">★ 8.4</span>
+            </div>
+          </aside>
+        </div>
+
+        {/* Stats / proof strip */}
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { k: "10", l: "occasions", sub: "casual → nikah" },
+            { k: "5", l: "scorecards", sub: "fit, color, vibe" },
+            { k: "0", l: "photos stored", sub: "ever" },
+            { k: "1", l: "honest friend", sub: "in your pocket" },
+          ].map((s) => (
+            <div key={s.l} className="glass rounded-xl px-4 py-3">
+              <div className="flex items-baseline gap-2">
+                <span className="font-display font-bold text-2xl text-gradient-brand">{s.k}</span>
+                <span className="text-xs uppercase tracking-wider text-foreground/80">{s.l}</span>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-0.5">{s.sub}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Main grid */}
