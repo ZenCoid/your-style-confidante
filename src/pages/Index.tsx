@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Download, RefreshCw, Sparkles, Wand2, Lock, Quote } from "lucide-react";
-import flauntMark from "@/assets/flaunt-mark.jpg";
+
 import { toPng } from "html-to-image";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -216,20 +216,6 @@ const Index = () => {
 
   return (
     <main className="min-h-screen relative overflow-hidden">
-      {/* Ambient floating mark — soft, blurred, behind everything */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-24 -right-32 w-[640px] h-[640px] opacity-[0.18] blur-[2px] float-slow"
-        style={{
-          backgroundImage: `url(${flauntMark})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          maskImage: "radial-gradient(circle at center, black 40%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(circle at center, black 40%, transparent 75%)",
-        }}
-      />
-
       {/* Header */}
       <header className="container max-w-6xl pt-7 pb-4 flex items-center justify-between relative">
         <FlauntLogo />
