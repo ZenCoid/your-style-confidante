@@ -1,5 +1,7 @@
-import flauntMark from "@/assets/flaunt-mark.jpg";
-import flauntFullLogo from "@/assets/flaunt-logo.jpg";
+"use client";
+
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface FlauntLogoProps {
   size?: "sm" | "md" | "lg";
@@ -10,11 +12,13 @@ export function FlauntLogo({ size = "md", variant = "mark" }: FlauntLogoProps) {
   if (variant === "full") {
     const h = size === "lg" ? "h-16 md:h-20" : size === "sm" ? "h-9" : "h-12";
     return (
-      <img
-        src={flauntFullLogo}
+      <Image
+        src="/flaunt-logo.jpg"
         alt="flaunt.fit"
-        className={`${h} w-auto select-none glow-mark`}
-        draggable={false}
+        className={cn(h, "w-auto select-none glow-mark")}
+        width={120}
+        height={48}
+        priority
       />
     );
   }
@@ -30,10 +34,17 @@ export function FlauntLogo({ size = "md", variant = "mark" }: FlauntLogoProps) {
 
   return (
     <div className="inline-flex items-center gap-3">
-      <div className={`relative ${wrap} rounded-2xl overflow-hidden border border-white/10 shadow-soft`}>
-        <img src={flauntMark} alt="" className="h-full w-full object-cover" draggable={false} />
+      <div className={cn("relative rounded-2xl overflow-hidden border border-white/10 shadow-soft", wrap)}>
+        <Image 
+          src="/flaunt-mark.jpg" 
+          alt="" 
+          className="h-full w-full object-cover" 
+          width={44}
+          height={44}
+          priority
+        />
       </div>
-      <span className={`font-display italic font-bold ${text} tracking-tight leading-none`}>
+      <span className={cn("font-display italic font-bold tracking-tight leading-none", text)}>
         flaunt<span className="text-gradient-brand">.fit</span>
       </span>
     </div>
