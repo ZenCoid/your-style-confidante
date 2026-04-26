@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Download, RefreshCw, Sparkles, Wand2, Lock, Quote } from "lucide-react";
-import flauntMark from "@/assets/flaunt-mark.jpg";
+
 import { toPng } from "html-to-image";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
