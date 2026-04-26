@@ -1,0 +1,4 @@
+project_id = "lnvvvkuupxrmqkbonxex"
+
+[functions.analyze-outfit]
+verify_jwt = false
