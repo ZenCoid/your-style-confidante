@@ -1,7 +1,8 @@
 import { forwardRef } from "react";
+import { motion } from "framer-motion";
 import { ScoreBars } from "./ScoreBars";
 import { FlauntLogo } from "./FlauntLogo";
-import { verdictTone } from "@/lib/flaunt-utils";
+import { verdictTone, scoreColorClass } from "@/lib/flaunt-utils";
 import type { Analysis } from "@/lib/flaunt-types";
 import { cn } from "@/lib/utils";
 
@@ -69,6 +70,31 @@ export const ResultsCard = forwardRef<HTMLDivElement, ResultsCardProps>(
             <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Scorecard</p>
             <p className="text-[10px] text-muted-foreground/70">words matter more than numbers</p>
           </div>
+
+          {/* Editorial overall — the magazine moment */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-end justify-between mb-5 pb-4 border-b border-white/5"
+          >
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70 mb-1">Overall</p>
+              <p className="text-xs text-muted-foreground/80 font-display italic">on a scale of vibes</p>
+            </div>
+            <div className="flex items-baseline gap-1">
+              <span
+                className={cn(
+                  "font-display font-bold tabular-nums leading-none text-[clamp(3.5rem,12vw,6rem)]",
+                  scoreColorClass(analysis.scores.overall),
+                )}
+              >
+                {analysis.scores.overall.toFixed(1)}
+              </span>
+              <span className="text-base text-muted-foreground font-display">/10</span>
+            </div>
+          </motion.div>
+
           <ScoreBars scores={analysis.scores} />
         </div>
 
@@ -157,7 +183,7 @@ export const ShareableCard = forwardRef<HTMLDivElement, ShareableCardProps>(
             </div>
 
             <div className="glass rounded-3xl p-7">
-              <ScoreBars scores={analysis.scores} />
+              <ScoreBars scores={analysis.scores} staticRender />
             </div>
           </div>
         </div>

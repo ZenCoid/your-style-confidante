@@ -1,8 +1,15 @@
+import { motion } from "framer-motion";
 import { SCORE_LABELS, type Scores } from "@/lib/flaunt-types";
 import { scoreBgClass, scoreColorClass } from "@/lib/flaunt-utils";
 import { cn } from "@/lib/utils";
 
-export function ScoreBars({ scores }: { scores: Scores }) {
+interface ScoreBarsProps {
+  scores: Scores;
+  /** Skip motion (useful inside the off-screen ShareableCard for PNG export) */
+  staticRender?: boolean;
+}
+
+export function ScoreBars({ scores, staticRender = false }: ScoreBarsProps) {
   const order: (keyof Scores)[] = [
     "overall",
     "occasion_match",
@@ -10,14 +17,21 @@ export function ScoreBars({ scores }: { scores: Scores }) {
     "fit_silhouette",
     "style_points",
   ];
+
   return (
     <div className="space-y-3">
-      {order.map((key) => {
+      {order.map((key, i) => {
         const value = Number(scores[key] ?? 0);
         const pct = Math.max(0, Math.min(100, (value / 10) * 100));
         const isOverall = key === "overall";
+
         return (
-          <div key={key}>
+          <motion.div
+            key={key}
+            initial={staticRender ? false : { opacity: 0, y: 6 }}
+            animate={staticRender ? undefined : { opacity: 1, y: 0 }}
+            transition={{ delay: 0.05 * i, duration: 0.35, ease: "easeOut" }}
+          >
             <div className="flex items-baseline justify-between mb-1.5">
               <span
                 className={cn(
@@ -39,12 +53,18 @@ export function ScoreBars({ scores }: { scores: Scores }) {
               </span>
             </div>
             <div className="h-1.5 w-full rounded-full bg-white/[0.06] overflow-hidden">
-              <div
-                className={cn("h-full rounded-full transition-[width] duration-700 ease-out", scoreBgClass(value))}
-                style={{ width: `${pct}%` }}
+              <motion.div
+                className={cn("h-full rounded-full", scoreBgClass(value))}
+                initial={staticRender ? false : { width: 0 }}
+                animate={staticRender ? { width: `${pct}%` } : { width: `${pct}%` }}
+                transition={{
+                  delay: 0.1 + 0.07 * i,
+                  duration: 0.9,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               />
             </div>
-          </div>
+          </motion.div>
         );
       })}
     </div>
