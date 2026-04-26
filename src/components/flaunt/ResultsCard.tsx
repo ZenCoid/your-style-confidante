@@ -1,7 +1,8 @@
 import { forwardRef } from "react";
+import { motion } from "framer-motion";
 import { ScoreBars } from "./ScoreBars";
 import { FlauntLogo } from "./FlauntLogo";
-import { verdictTone } from "@/lib/flaunt-utils";
+import { verdictTone, scoreColorClass } from "@/lib/flaunt-utils";
 import type { Analysis } from "@/lib/flaunt-types";
 import { cn } from "@/lib/utils";
 
