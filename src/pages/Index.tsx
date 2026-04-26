@@ -304,7 +304,17 @@ const Index = () => {
       </section>
 
       {/* Main grid */}
-      <section className="container max-w-6xl pb-12">
+      <section className="container max-w-6xl pb-12 relative">
+        {/* Section label */}
+        <div className="flex items-baseline justify-between mb-6">
+          <div className="flex items-baseline gap-3">
+            <span className="font-display italic text-brand-coral text-sm">§ 01</span>
+            <h2 className="font-display text-xl tracking-tight">The Fitting Room</h2>
+          </div>
+          <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground/60 hidden sm:block">
+            Upload · Occasion · Verdict
+          </span>
+        </div>
         <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-6 lg:gap-8 items-start">
           {/* Left: inputs */}
           <div className="space-y-5 lg:sticky lg:top-6">
@@ -398,11 +408,17 @@ const Index = () => {
         <HistoryStrip entries={history} onSelect={handleHistoryClick} onClear={handleClearHistory} />
       </section>
 
-      <footer className="container max-w-6xl pb-10 pt-4 text-center text-xs text-muted-foreground">
-        <p>
-          flaunt.fit · @flaunt.fit · honest fits, no judgement · Photos are processed and discarded — nothing
-          stored on our servers.
-        </p>
+      <footer className="container max-w-6xl pb-10 pt-8 relative">
+        <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/70 mb-6">
+          <span className="h-px flex-1 bg-white/10" />
+          <span>Fin.</span>
+          <span className="h-px flex-1 bg-white/10" />
+        </div>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-muted-foreground">
+          <FlauntLogo size="sm" />
+          <p className="font-display italic">"honest fits, no judgement."</p>
+          <p>@flaunt.fit · photos processed, never stored</p>
+        </div>
       </footer>
 
       {/* Off-screen shareable card for PNG export */}
