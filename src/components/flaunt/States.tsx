@@ -34,25 +34,51 @@ export function LoadingState() {
 }
 
 export function EmptyState() {
+  const samples = [
+    { tag: "vibe check", text: "okay this is actually solid — that jacket is doing a LOT of work." },
+    { tag: "the good", text: "neutral palette + tailored shoulders = quiet confidence." },
+    { tag: "the fix", text: "swap the white sneakers for clean loafers and you're golden." },
+  ];
   return (
-    <div className="glass rounded-2xl p-10 text-center min-h-[480px] grid place-items-center">
-      <div className="max-w-sm mx-auto">
+    <div className="space-y-5">
+      <div className="glass rounded-2xl p-8 md:p-10 text-center">
         <div className="mx-auto mb-5 grid h-20 w-20 place-items-center rounded-3xl bg-gradient-brand-soft border border-white/10 pulse-soft">
           <span className="text-4xl" aria-hidden>👀</span>
         </div>
-        <h2 className="font-display text-2xl mb-2">Drop a fit, pick a vibe.</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          I'll tell you the truth — like a stylish friend texting back. No harsh scores, just whether it works for
-          where you're going.
+        <h2 className="font-display text-2xl md:text-3xl mb-2">Drop a fit, pick a vibe.</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed max-w-md mx-auto">
+          I'll text you back like a stylish friend would — no harsh scores, just whether it works
+          for where you're going.
         </p>
         <div className="mt-6 flex flex-wrap gap-2 justify-center">
           {["honestly", "tbh", "lowkey", "carrying", "the fix"].map((w) => (
             <span
               key={w}
-              className="text-xs px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-muted-foreground"
+              className="text-xs px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-muted-foreground font-display italic"
             >
               {w}
             </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Sample preview — shows what feedback looks like, fills space */}
+      <div>
+        <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground/60 mb-3 px-1">
+          A taste of the feedback
+        </p>
+        <div className="space-y-3">
+          {samples.map((s, i) => (
+            <div
+              key={s.tag}
+              className="glass rounded-xl p-4 animate-in-up"
+              style={{ animationDelay: `${i * 80}ms` }}
+            >
+              <p className="text-[10px] uppercase tracking-[0.2em] text-brand-pink mb-1.5 font-medium">
+                {s.tag}
+              </p>
+              <p className="font-display italic text-foreground/90 leading-snug">"{s.text}"</p>
+            </div>
           ))}
         </div>
       </div>
