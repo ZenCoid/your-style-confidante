@@ -183,7 +183,7 @@ export const ShareableCard = forwardRef<HTMLDivElement, ShareableCardProps>(
             </div>
 
             <div className="glass rounded-3xl p-7">
-              <ScoreBars scores={analysis.scores} />
+              <ScoreBars scores={analysis.scores} staticRender />
             </div>
           </div>
         </div>
